@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lyrics - Maula Mere</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to bottom, #e6e6fa, #fff0f5);
+      font-family: 'Georgia', serif;
+      overflow: hidden;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
+
+    .heading {
+      font-size: 2.2em;
+      color: #d63384;
+      margin-top: 20px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    #lyrics-container {
+      margin-top: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 60vh;
+    }
+
+    .lyrics {
+      font-size: 2em;
+      color: #4b0082;
+      text-align: center;
+      position: absolute;
+      opacity: 0;
+      transform: scale(0.9);
+      animation: popIn 1s ease forwards;
+      white-space: pre-line;
+    }
+
+    .speaker-button {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5em;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 20;
+    }
+
+    .back-button {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      font-size: 1.5em;
+      text-decoration: none;
+      color: #d63384;
+      z-index: 20;
+    }
+
+    .next-button {
+      margin-top: auto;
+      margin-bottom: 30px;
+      padding: 10px 20px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .next-button:hover {
+      background-color: #ff3d8b;
+    }
+
+    @keyframes popIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.9) translateY(30px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <a href="ily.html" class="back-button">⟵ Back</a>
+  <div class="heading">ME WHEN NISHIL KRISHNA</div>
+  <div id="lyrics-container"></div>
+
+  <audio id="bg-music" autoplay>
+    <source src="https://dl.dropboxusercontent.com/scl/fi/fh7tyl1y3391tqytzuam1/WhatsApp-Audio-2025-06-13-at-23.42.35_0566077a.mp3?rlkey=cz3o6w6oqdjxbve2n8xw8w9r3&st=ijvy9vkv" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button class="speaker-button" onclick="toggleMusic()">🔊</button>
+  <button class="next-button" onclick="window.location.href='letter.html'">Next</button>
+
+  <script>
+    const lyrics = [
+      { line: "Aankhein teri kitni haseen", translation: "Your eyes are so beautiful", time: 0 },
+      { line: "Ki inkaa aashiq mein ban gaya hun", translation: "That I became their lover", time: 7 },
+      { line: "Mujhko basa le in me tu", translation: "Please let me live in them", time: 14 },
+      { line: "Mujhse yeh har ghadi mera dil kahe", translation: "Every moment my heart tells me", time: 21 },
+      { line: "Tum hi ho usaki aarzoo", translation: "You are its only desire", time: 28 },
+      { line: "Mujhse yeh har ghadi mere lab kahe", translation: "Every moment my lips say", time: 35 },
+      { line: "Teri hi ho sab guftagoo", translation: "That all talk is about you", time: 42 },
+      { line: "Baatein teri itni haseen", translation: "Your words are so lovely", time: 49 },
+      { line: "Main yaad inko jab kartaa hun", translation: "When I remember them", time: 56 },
+      { line: "Phoolon si aaye khushaboo", translation: "They smell like flowers", time: 63 },
+      { line: "Rakh loon chhupaa ke main kahin tujhako", translation: "Let me hide you somewhere safe", time: 70 },
+      { line: "Saayaa bhi teraa naa main doon", translation: "I won't even let your shadow go", time: 77 },
+      { line: "Rakh loon banaa ke kahin ghar main tujhe", translation: "Let me make a home of you", time: 84 },
+      { line: "Saath tere main hi rahun", translation: "And always stay with you", time: 91 },
+      { line: "Zulfein teri itni ghani", translation: "Your hair is so thick", time: 98 },
+      { line: "Dekh ke inako yeh sochataa hun", translation: "Looking at them I think", time: 105 },
+      { line: "Saaye me inake main jiyoon", translation: "I want to live in their shade", time: 112 },
+      { line: "Ishq hai", translation: "This is love", time: 119 },
+      { line: "Maula mere maula mere", translation: "Oh Lord, oh my Lord", time: 126 },
+      { line: "Mera dil yahi bolaa", translation: "My heart says this", time: 133 },
+      { line: "Yaara raaj yeh usane hai mujh par kholaa", translation: "My love revealed this secret to me", time: 140 },
+      { line: "Ki hai ishq mohabbat jiske dil mein", translation: "That whoever has love in their heart", time: 147 },
+      { line: "Usko pasand karta hai maula", translation: "Is favored by the Lord", time: 154 },
+      { line: "Mera dil yahi bolaa", translation: "My heart says this", time: 161 },
+      { line: "Yaara raaj yeh usane hai mujh par kholaa", translation: "My love revealed this secret to me", time: 168 }
+    ];
+
+    const container = document.getElementById('lyrics-container');
+    const audio = document.getElementById('bg-music');
+    const button = document.querySelector('.speaker-button');
+    let isPlaying = true;
+    let currentIndex = 0;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        button.textContent = '🔇';
+      } else {
+        audio.play();
+        button.textContent = '🔊';
+      }
+      isPlaying = !isPlaying;
+    }
+
+    function showNextLyric() {
+      const currentTime = audio.currentTime;
+      if (currentIndex < lyrics.length && currentTime >= lyrics[currentIndex].time) {
+        const line = document.createElement('div');
+        line.className = 'lyrics';
+        line.style.top = '50%';
+        line.style.left = '50%';
+        line.style.transform = 'translate(-50%, -50%) scale(0.9)';
+        line.innerHTML = '<strong>' + lyrics[currentIndex].line + '</strong><br><small style="font-size: 0.7em; color: #8a2be2;">' + lyrics[currentIndex].translation + '</small>';
+        container.innerHTML = '';
+        container.appendChild(line);
+        currentIndex++;
+      }
+      requestAnimationFrame(showNextLyric);
+    }
+
+    audio.addEventListener('play', () => {
+      requestAnimationFrame(showNextLyric);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Happy Half Year Anniversary</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #fff0f5;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+      overflow: hidden;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 2.5em;
+      color: #ff69b4;
+      text-shadow: 2px 2px #fff;
+      z-index: 10;
+      margin: 0 20px 30px 20px;
+    }
+
+    .my-pic {
+      width: 250px;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 10;
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 30px;
+      animation: float 6s linear infinite;
+      pointer-events: none;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(-10vh) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .btn {
+      margin-top: 20px;
+      padding: 10px 22px;
+      font-size: 1em;
+      background-color: #ff69b4;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      z-index: 10;
+      position: relative;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+
+    .btn:hover {
+      background-color: #ff3d8b;
+    }
+  </style>
+</head>
+<body>
+  <h1>Happy half year anniversary<br>my sweetest baby boy ❤️</h1>
+  <img class="my-pic" src="2ac5d1fd-12af-4484-b418-4c72e348c904.jpg" alt="My Picture">
+
+  <div>
+    <button class="btn" onclick="goToLyrics()">🎵 Read the Song</button>
+    <button class="btn" onclick="goToLetter()">💌 Read the Letter</button>
+  </div>
+
+  <script>
+    function createFlower() {
+      const flower = document.createElement('div');
+      const emojis = ['🌷', '🌹', '🌸', '💐', '🌺'];
+      flower.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      flower.className = 'flower';
+      flower.style.left = Math.random() * window.innerWidth + 'px';
+      flower.style.top = '-50px';
+      flower.style.animationDuration = (3 + Math.random() * 3) + 's';
+      document.body.appendChild(flower);
+      setTimeout(() => flower.remove(), 7000);
+    }
+
+    setInterval(createFlower, 300);
+
+    function goToLyrics() {
+      window.location.href = 'lyrics.html';
+    }
+
+    function goToLetter() {
+      window.location.href = 'letter.html';
+    }
+  </script>
+
+  <audio id="bg-music" autoplay loop>
+    <source src="https://dl.dropboxusercontent.com/scl/fi/xk83p6ip9lvniu4bwdomq/WhatsApp-Audio-2025-06-13-at-23.11.17_340f7f34.mp3?rlkey=p438pletexo91p11ypwgkjolf&st=tsb85fbo" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+
+  <button onclick="toggleMusic()" style="margin-top: 15px; padding: 8px 16px; font-size: 0.9em; background-color: #d63384; color: white; border: none; border-radius: 8px; cursor: pointer; position: relative; z-index: 10;">
+    🔊
+  </button>
+
+  <script>
+    const audio = document.getElementById('bg-music');
+    let isPlaying = true;
+
+    function toggleMusic() {
+      if (isPlaying) {
+        audio.pause();
+        event.target.textContent = '🔇';
+      } else {
+        audio.play();
+        event.target.textContent = '🔊';
+      }
+      isPlaying = !isPlaying;
+    }
+  </script>
+</body>
+</html>
